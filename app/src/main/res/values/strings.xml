@@ -5,6 +5,10 @@
     <string name="media_url_mp4_2">http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4</string>
     <string name="media_url_mp4_3">http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4</string>
 
+    <string name="media_url_mp4_vertical_1">https://assets.mixkit.co/videos/preview/mixkit-young-photographer-setting-up-his-camera-outdoors-34408-large.mp4</string>
+    <string name="media_url_mp4_vertical_2">https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-1232-large.mp4</string>
+    <string name="media_url_mp4_vertical_3">https://assets.mixkit.co/videos/preview/mixkit-portrait-of-a-fashion-woman-with-silver-makeup-39875-large.mp4</string>
+
     <string name="media_url_unknown_mime_type">http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes</string>
 
 

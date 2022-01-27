@@ -2,11 +2,13 @@ package com.stacon.exoplaysample
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.SparseArray
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.TracksInfo
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
@@ -86,7 +88,6 @@ class BasicActivity : AppCompatActivity() {
             exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_2)))
             exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_3)))
             */
-
             // * 메타데이터를 사용하면 UI 업데이트 시 유용할 수 있다.
             val metaDataMediaItem = MediaItem.Builder()
                 .setUri(getString(R.string.media_url_mp4_1))
@@ -146,6 +147,7 @@ class BasicActivity : AppCompatActivity() {
             release()
         }
         videoPlayer = null
+
     }
 
     private fun playerEventListener() = object : Player.Listener {
@@ -164,6 +166,11 @@ class BasicActivity : AppCompatActivity() {
             super.onMediaItemTransition(mediaItem, reason)
             val tag = mediaItem?.localConfiguration?.tag
             binding.tvIndex.text = "Index : $tag"
+        }
+
+        override fun onTracksInfoChanged(tracksInfo: TracksInfo) {
+            super.onTracksInfoChanged(tracksInfo)
+
         }
     }
 }
