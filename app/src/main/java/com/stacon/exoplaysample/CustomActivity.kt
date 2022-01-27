@@ -65,22 +65,27 @@ class CustomActivity : AppCompatActivity() {
     }
 
     private fun initializePlayer() {
-        videoPlayer = ExoPlayer.Builder(this).build().also { exoPlayer ->
-            binding.playerView.player = exoPlayer
-            binding.playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT
+        videoPlayer = ExoPlayer
+            .Builder(this)
+            .setSeekForwardIncrementMs(5000) // 빨리감기 시간정의
+            .setSeekBackIncrementMs(5000) // 뒤로감기 시간정의
+            .build()
+            .also { exoPlayer ->
+                binding.playerView.player = exoPlayer
+                binding.playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT
 
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_1)))
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_2)))
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_3)))
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_1)))
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_2)))
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_3)))
+                exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_1)))
+                exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_2)))
+                exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_3)))
+                exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_1)))
+                exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_2)))
+                exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_3)))
 
-            exoPlayer.playWhenReady = playWhenReady
-            exoPlayer.seekTo(currentWindow, playbackPosition)
-            exoPlayer.addListener(playerEventListener())
-            exoPlayer.prepare()
-        }
+                exoPlayer.playWhenReady = playWhenReady
+                exoPlayer.seekTo(currentWindow, playbackPosition)
+                exoPlayer.addListener(playerEventListener())
+                exoPlayer.prepare()
+            }
     }
 
     private fun releasePlayer() {
