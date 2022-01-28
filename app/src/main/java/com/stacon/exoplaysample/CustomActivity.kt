@@ -115,3 +115,4 @@ class CustomActivity : AppCompatActivity() {
         }
     }
 }
+// 단위 짜르기, 영상재생시간 옮기기

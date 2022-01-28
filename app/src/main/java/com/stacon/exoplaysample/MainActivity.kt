@@ -24,5 +24,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnCustom.setOnClickListener {
             startActivity(Intent(this@MainActivity, CustomActivity::class.java))
         }
+        binding.btnExtension.setOnClickListener {
+            startActivity(Intent(this@MainActivity, ExtensionActivity::class.java))
+        }
     }
 }
