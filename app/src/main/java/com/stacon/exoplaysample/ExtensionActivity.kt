@@ -1,6 +1,9 @@
 package com.stacon.exoplaysample
 
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.media.MediaMetadataRetriever
+import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
@@ -11,6 +14,12 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.stacon.exoplaysample.databinding.ActivityExtensionBinding
 import com.stacon.exoplaysample.manager.GlideThumbnailTransformation
+import com.stacon.exoplaysample.util.JsLog
+import wseemann.media.FFmpegMediaMetadataRetriever
+
+
+
+
 
 class ExtensionActivity : BaseActivity<ActivityExtensionBinding>({ ActivityExtensionBinding.inflate(it) }) {
 
@@ -31,16 +40,24 @@ class ExtensionActivity : BaseActivity<ActivityExtensionBinding>({ ActivityExten
                 .setTag("0")
                 .build()
 
+//            exoPlayer.addMediaItem(metaDataMediaItem)
 
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_2)))
-            exoPlayer.addMediaItem(metaDataMediaItem)
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_3)))
-            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_1)))
+
+//            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_2)))
+//            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_vertical_3)))
+//            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.media_url_mp4_1)))
+
+            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.medipal_sample_4)))
+
+            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.medipal_sample_1)))
+            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.medipal_sample_2)))
+            exoPlayer.addMediaItem(MediaItem.fromUri(getString(R.string.medipal_sample_3)))
 
             exoPlayer.playWhenReady = playWhenReady
             exoPlayer.seekTo(currentWindow, playbackPosition)
             exoPlayer.addListener(ExoListener.playerEventListener())
-            exoPlayer.prepare()
+            // exoPlayer.prepare()
+
         }
 
         previewImage = binding.playerView.findViewById(R.id.iv_preview)
@@ -55,6 +72,37 @@ class ExtensionActivity : BaseActivity<ActivityExtensionBinding>({ ActivityExten
         previewTimeBar.setPlayedColor(Color.parseColor("#FEAADE"))
         previewTimeBar.setUnplayedColor(Color.parseColor("#FE0204"))
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // todo
+        val mmr = FFmpegMediaMetadataRetriever()
+        mmr.setDataSource(getString(R.string.media_url_mp4_2))
+        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM)
+        mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST)
+        val b = mmr.getFrameAtTime(2000000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST) // frame at 2 seconds
+        mmr.release()
+
+        binding.ivThumbnail.setImageBitmap(b)
+
+//        // todo
+//
+//        var temp: MediaMetadataRetriever? = null
+//        var bitmap: Bitmap? = null
+//        // TODO: 쌈네일
+//        try {
+//                temp = MediaMetadataRetriever().apply {
+//                setDataSource(getString(R.string.medipal_sample_1), HashMap<String, String>())
+//            }
+//            bitmap = temp.getFrameAtTime(2000)
+//        } catch (e: Exception) {
+//            JsLog.debug(">>>>>>>>>>>> ${e.toString()}")
+//        } finally {
+//            temp?.release()
+//        }
+//        binding.ivThumbnail.setImageBitmap(bitmap)
     }
 
     override fun releasePlayer() {
